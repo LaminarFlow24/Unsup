@@ -13,7 +13,6 @@ from flask_socketio import SocketIO, emit
 from PIL import Image
 from tensorflow.keras.regularizers import l2
 
-
 # Import pre-trained helper functions from the separate module.
 from pretrained_helpers import (
     pretrained_face_detection,
@@ -120,8 +119,8 @@ def vector_generator(file_paths, labels, batch_size, preprocessing_fn):
             batch_data = []
             for path in batch_paths:
                 img = Image.open(path).convert('RGB')
-                img = img.resize((64, 64))
-                img_arr = np.array(img).astype(np.float32) / 255.0
+                img = img.resize((64,64))
+                img_arr = np.array(img).astype(np.float32)/255.0
                 if preprocessing_fn is not None:
                     processed = preprocessing_fn(img_arr)
                 else:
