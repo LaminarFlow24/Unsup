@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Webcam Pre-trained Demo</title>
+    <style>
+      body {
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+      #video_feed {
+        width: 640px;
+        height: 480px;
+        border: 2px solid #333;
+        margin-top: 20px;
+      }
+      form {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Webcam Pre-trained Demo</h1>
+    <form action="/video_feed" method="get">
+      <label for="mode">Select Mode:</label>
+      <select name="mode" id="mode">
+        <option value="face_detection">Face Detection</option>
+        <option value="face_embedding">Face Embedding (Face Mesh)</option>
+        <option value="object_detection">Object Detection</option>
+        <option value="image_segmentation">Image Segmentation</option>
+        <option value="hand_landmark">Hand Landmark Detection</option>
+        <option value="body_landmark">Body Landmark Detection</option>
+      </select>
+      <input type="submit" value="Start Webcam">
+    </form>
+
+    <hr>
+
+    <h2>Video Feed</h2>
+    <!-- The image tag displays the streaming video feed from the /video_feed route -->
+    <img id="video_feed" src="{{ url_for('video_feed', mode='face_detection') }}" alt="Video Feed">
+    
+    <!-- Optional: if you want to update the video feed when the user changes the selection without reloading the page -->
+    <script>
+      const modeSelect = document.getElementById('mode');
+      const videoFeed = document.getElementById('video_feed');
+      
+      modeSelect.addEventListener('change', function() {
+        const mode = this.value;
+        // Update the video feed source URL
+        videoFeed.src = "/video_feed?mode=" + mode;
+      });
+    </script>
+  </body>
+</html>
